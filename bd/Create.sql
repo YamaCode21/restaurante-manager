@@ -1,30 +1,55 @@
+DROP DATABASE IF EXISTS restaurante_manager;
 create database if not exists restaurante_manager;
 use restaurante_manager;
 
-create table users (
+create table usuarios (
 	id int auto_increment primary key,
 	nombre varchar(100),
 	email varchar(100) unique,
 	password varchar(255),
-	role enum('admin', 'mesero', 'cocinero')
+	rol enum('admin', 'mesero', 'cocinero'),
+	resturante_id int,
+	activo boolean default true,
+	creado_en timestamp default current_timestamp
+);
+
+create table restaurantes (
+	id int auto_increment primary key,
+	nombre varchar(150),
+	direccion varchar(255),
+	telefono varchar(20),
+	creado_en timestamp default current_timestamp
+);
+
+create table categorias (
+	id int auto_increment primary key,
+	nombre varchar(100),
+	restaurante_id int,
+	activo boolean default true,
+	foreign key (restaurante_id) references restaurantes(id)
 );
 
 create table productos (
 	id int auto_increment primary key,
 	nombre varchar(100),
-	descripcion text,
 	precio decimal(10,2),
+	categoria_id int,
 	stock int,
-	categoria varchar(50)
+	activo boolean default true,
+	creado_en timestamp default current_timestamp,
+	foreign key (categoria_id) references categorias(id)
 );
 
 create table pedidos (
 	id int auto_increment primary key,
-	user_id int,
-	estados enum('pendiente', 'en_cocina', 'listo', 'entregado') DEFAULT 'pendiente',
+	restaurante_id int,
+	usuario_id int,
+	estado enum('pendiente', 'en_cocina', 'listo', 'entregado') DEFAULT 'pendiente',
 	total decimal(10,2),
 	fecha datetime default current_timestamp,
-	foreign key (user_id) references users(id)
+	activo boolean default true,
+	foreign key (restaurante_id) references restaurantes(id),
+	foreign key (usuario_id) references usuarios(id)
 );
 
 create table pedido_detalle (
@@ -32,6 +57,8 @@ create table pedido_detalle (
 	pedido_id int,
 	producto_id int,
 	cantidad int,
+	precio_unitario decimal(10,2),
+	subtotal decimal(10,2),
 	foreign key (pedido_id) references pedidos(id),
 	foreign key (producto_id) references productos(id)
 );
