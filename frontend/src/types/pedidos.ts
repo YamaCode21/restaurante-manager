@@ -1,7 +1,10 @@
-export type EstadoPedido = 'pendiente' | 'en_cocina' | 'listo' | 'entregado';
+export type EstadoPedido = 'pendiente' | 'preparando' | 'listo' | 'entregado';
 
 export interface Pedidos {
   id: number;
-  user_id: number;
+  restaurante_id: number;
+  usuario_id: number;
   estado: EstadoPedido;
+  total: number;
+  fecha: string | Date;
 }

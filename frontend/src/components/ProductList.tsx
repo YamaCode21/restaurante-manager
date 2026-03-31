@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import type { Productos } from "../types/productos";
 import API from "../api/axios";
 
 export default function ProductList() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Productos[]>([]);
 
   useEffect(() => {
     API.get("/products")

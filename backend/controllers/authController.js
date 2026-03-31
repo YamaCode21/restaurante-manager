@@ -2,7 +2,7 @@ const db = require('../config/db');
 const bcryt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-exports,register = (req, res) => {
+exports.register = (req, res) => {
   const { nombre, email, password, role } = req.body;
 
   const sql = 'INSERT INTO users (nombre, email, password, role) VALUES (?, ?, ?, ?)';

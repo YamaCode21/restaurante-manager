@@ -1,0 +1,17 @@
+/* Contenedor principal para Dashboard y Tablas */
+.container {
+  max-width: 1200px;    /* Límite de ancho para pantallas grandes */
+  margin: 0 auto;       /* Centra el contenido horizontalmente */
+  width: 100%;          /* Ocupa todo el ancho en móviles */
+  padding: 0 2rem;      /* Espacio a los lados para que no toque los bordes */
+  box-sizing: border-box; /* Evita que el padding sume ancho extra */
+}
+
+/* Opcional: Centrar el contenido del Login verticalmente */
+.full-screen-center {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f9; /* Color de fondo suave */
+}
