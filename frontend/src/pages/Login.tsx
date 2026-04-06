@@ -7,9 +7,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const res = await API.post("/auth/login", { email, password });
+    try {
+      const res = await API.post("/auth/login", { email, password });
     localStorage.setItem("token", res.data.token);
-    window.location.href = "/dashboard";
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+    window.location.href = "/inicio";
+    } catch (error:any) {
+      console.error("Error en el login:", error.response?.data?.message || error.message);
+      alert("Credenciales incorrectas o error en el servidor");
+    }
   };
 
   return (
@@ -35,12 +41,12 @@ export default function Login() {
               />
             </div>
             <button
-              className="bg-blue-600 w-full p-2 rounded-sm text-white"
+              className="bg-blue-600 cursor-pointer w-full p-2 rounded-sm text-white"
               onClick={handleLogin}
             >
               Iniciar Sesión
             </button>
-            <a href="#" className="text-sm">
+            <a href="#" className="text-sm hover:font-bold">
               ¿Olvidaste la contraseña?
             </a>
           </div>
