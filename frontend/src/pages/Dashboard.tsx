@@ -1,11 +1,9 @@
-import Aside from "../components/Aside";
 import ProductList from "../components/ProductList";
 
 export default function Dashboard() {
   return (
     <div className="flex">
-      <Aside />
-      <div className="w-full bg-gray-100">
+      <div className="w-full">
         <h1>Dashboard</h1>
         <ProductList />
       </div>

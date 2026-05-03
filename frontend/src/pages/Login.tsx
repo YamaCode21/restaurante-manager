@@ -9,17 +9,23 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await API.post("/auth/login", { email, password });
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    window.location.href = "/inicio";
-    } catch (error:any) {
-      console.error("Error en el login:", error.response?.data?.message || error.message);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      window.location.href = "/dashboard";
+    } catch (error: any) {
+      console.error(
+        "Error en el login:",
+        error.response?.data?.message || error.message,
+      );
       alert("Credenciales incorrectas o error en el servidor");
     }
   };
 
   return (
-    <div style={{ backgroundImage: `url(${fondo})`, backgroundSize: "cover" }} className="h-screen">
+    <div
+      style={{ backgroundImage: `url(${fondo})`, backgroundSize: "cover" }}
+      className="h-screen"
+    >
       <div className="bg-black/40">
         <div className="container flex justify-center items-center h-screen">
           <div className="bg-white w-4/12 flex flex-col items-center gap-6 shadow-2xl p-3 rounded-xl">

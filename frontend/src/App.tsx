@@ -1,27 +1,45 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Pedidos from "./pages/Pedidos";
+import MainLayout from "./layouts/MainLayout";
+import Productos from "./pages/Productos";
+import Reportes from "./components/Reportes";
+
+const ProtectedRoute = () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+};
 
 function App() {
-
-  const isAuthenticated = !!localStorage.getItem('token');
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route 
-          path="/dashboard" 
-          element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />}
-        >
-          {/* Al entrar a /dashboard se carga 'Dashboard' por defecto (index) */}
-          <Route index element={<Dashboard />} />
-          {/* <Route path="productos" element={<Productos />} /> */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/pedidos" element={<Pedidos />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/productos" element={<Productos />} />
+            <Route path="/reportes" element={<Reportes />} />
+          </Route>
           {/* <Route path="ordenes" element={<div>Sección de Órdenes</div>} /> */}
         </Route>
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

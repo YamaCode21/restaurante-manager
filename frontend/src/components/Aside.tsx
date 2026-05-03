@@ -71,7 +71,7 @@ export default function Aside() {
       <div>
         <button
           onClick={handleLogout}
-          className="mt-auto cursor-pointer flex items-center gap-2 p-2 bg-red-600 hover:bg-red-700 rounded transition-colors"
+          className="p-3 hover:border-red-500 border-2 border-transparent rounded-lg text-black cursor-pointer flex items-center gap-2 transition-colors"
         >
           🚪 Cerrar Sesión
         </button>
